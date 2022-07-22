@@ -1,8 +1,9 @@
 #!/bin/bash
 set -eu
 ROOTFS_DIR=$1
+CURRPATH=$PWD
 
-function setup_openwrt()
+function clean_rootfs()
 {
     mkdir -p run
     mkdir -p root/.ssh
@@ -12,5 +13,7 @@ function setup_openwrt()
 }
 
 (cd ${ROOTFS_DIR} && {
-	setup_openwrt
+	cp -af $CURRPATH/sysctl/* ${ROOTFS_DIR}/
+	cp -af $CURRPATH/opkg-conf/* ${ROOTFS_DIR}/
+	clean_rootfs
 })
