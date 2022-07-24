@@ -1,7 +1,7 @@
-From 445ee4a6620a8608fb526fc4139ffc75b30a5621 Mon Sep 17 00:00:00 2001
+From 1fae6219ef1bb0e367d8e03edeb835b3b1f42f7e Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Fri, 22 Jul 2022 13:00:30 +0800
-Subject: [PATCH] fix to make factory reset button work on FriendlyWrt
+Subject: [PATCH 1/2] fix to make factory reset button work on FriendlyWrt
 
 ---
  .../resources/view/system/flash.js            | 34 ++++++++++---------

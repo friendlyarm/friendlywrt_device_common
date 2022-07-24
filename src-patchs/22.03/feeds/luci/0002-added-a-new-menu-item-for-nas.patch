@@ -1,0 +1,50 @@
+From 3c7bd213b746a5ecd990cd89a1b29b473f37d0dd Mon Sep 17 00:00:00 2001
+From: Lawrence-Tang <tangzongsheng@gmail.com>
+Date: Sun, 24 Jul 2022 13:24:38 +0800
+Subject: [PATCH 2/2] added a new menu item for nas
+
+---
+ modules/luci-base/luasrc/controller/admin/uci.lua | 3 +++
+ modules/luci-base/po/zh_Hans/base.po              | 3 +++
+ modules/luci-base/po/zh_Hant/base.po              | 3 +++
+ 3 files changed, 9 insertions(+)
+
+diff --git a/modules/luci-base/luasrc/controller/admin/uci.lua b/modules/luci-base/luasrc/controller/admin/uci.lua
+index 7aad10d58a..c1966736e5 100644
+--- a/modules/luci-base/luasrc/controller/admin/uci.lua
++++ b/modules/luci-base/luasrc/controller/admin/uci.lua
+@@ -3,6 +3,9 @@
+ -- Licensed to the public under the Apache License 2.0.
+ 
+ module("luci.controller.admin.uci", package.seeall)
++function index()
++        entry({"admin", "nas"}, firstchild(), _("NAS"), 44).index = true
++end
+ 
+ local function ubus_state_to_http(errstr)
+ 	local map = {
+diff --git a/modules/luci-base/po/zh_Hans/base.po b/modules/luci-base/po/zh_Hans/base.po
+index 6a13ccbdb6..1f8a465133 100644
+--- a/modules/luci-base/po/zh_Hans/base.po
++++ b/modules/luci-base/po/zh_Hans/base.po
+@@ -9681,3 +9681,6 @@ msgstr "是"
+ #: modules/luci-compat/luasrc/view/cbi/delegator.htm:20
+ msgid "« Back"
+ msgstr "« 后退"
++
++msgid "NAS"
++msgstr "网络存储"
+diff --git a/modules/luci-base/po/zh_Hant/base.po b/modules/luci-base/po/zh_Hant/base.po
+index 50a60f29bf..7cd3736b6a 100644
+--- a/modules/luci-base/po/zh_Hant/base.po
++++ b/modules/luci-base/po/zh_Hant/base.po
+@@ -9690,3 +9690,6 @@ msgstr "是"
+ #: modules/luci-compat/luasrc/view/cbi/delegator.htm:20
+ msgid "« Back"
+ msgstr "« 倒退"
++
++msgid "NAS"
++msgstr "網絡存儲"
+-- 
+2.34.1
+

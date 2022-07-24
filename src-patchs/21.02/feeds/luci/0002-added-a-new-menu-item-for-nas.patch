@@ -1,0 +1,50 @@
+From e55241c000149ca6e6d1e381eaca2bf25e90d32b Mon Sep 17 00:00:00 2001
+From: Lawrence-Tang <tangzongsheng@gmail.com>
+Date: Sun, 24 Jul 2022 13:24:45 +0800
+Subject: [PATCH 2/2] added a new menu item for nas
+
+---
+ modules/luci-base/luasrc/controller/admin/uci.lua | 3 +++
+ modules/luci-base/po/zh_Hans/base.po              | 3 +++
+ modules/luci-base/po/zh_Hant/base.po              | 3 +++
+ 3 files changed, 9 insertions(+)
+
+diff --git a/modules/luci-base/luasrc/controller/admin/uci.lua b/modules/luci-base/luasrc/controller/admin/uci.lua
+index 7aad10d58a..c1966736e5 100644
+--- a/modules/luci-base/luasrc/controller/admin/uci.lua
++++ b/modules/luci-base/luasrc/controller/admin/uci.lua
+@@ -3,6 +3,9 @@
+ -- Licensed to the public under the Apache License 2.0.
+ 
+ module("luci.controller.admin.uci", package.seeall)
++function index()
++        entry({"admin", "nas"}, firstchild(), _("NAS"), 44).index = true
++end
+ 
+ local function ubus_state_to_http(errstr)
+ 	local map = {
+diff --git a/modules/luci-base/po/zh_Hans/base.po b/modules/luci-base/po/zh_Hans/base.po
+index 6623bed243..3ee613a3d1 100644
+--- a/modules/luci-base/po/zh_Hans/base.po
++++ b/modules/luci-base/po/zh_Hans/base.po
+@@ -8749,3 +8749,6 @@ msgstr "« 后退"
+ #~ "em>字段的值将被固定分配给 <em>MAC 地址</em>字段标识的主机，<em>租期</em>是"
+ #~ "一个可选字段，可为每个主机单独设定 DHCP 租期的时长，例如：12h、3d、"
+ #~ "infinite，分别表示 12 小时、3 天、永久。"
++
++msgid "NAS"
++msgstr "网络存储"
+diff --git a/modules/luci-base/po/zh_Hant/base.po b/modules/luci-base/po/zh_Hant/base.po
+index 9ac9be80f8..eac415f412 100644
+--- a/modules/luci-base/po/zh_Hant/base.po
++++ b/modules/luci-base/po/zh_Hant/base.po
+@@ -8758,3 +8758,6 @@ msgstr "« 倒退"
+ #~ "置，<em>IPv4 位置</em> 指定要使用的固定 IP，<em>主機名稱</em> 為易於辨識的"
+ #~ "名稱。選擇性的 <em>租約時間長度</em> 可用來指定特殊裝置的租約時間，例如："
+ #~ "12h、3d 或無限。"
++
++msgid "NAS"
++msgstr "網絡存儲"
+-- 
+2.34.1
+
