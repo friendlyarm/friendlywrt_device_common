@@ -1,0 +1,40 @@
+From 1bd94942aa029d84e54e03a1f6c4c751d34065f9 Mon Sep 17 00:00:00 2001
+From: Lawrence-Tang <tangzongsheng@gmail.com>
+Date: Mon, 5 Sep 2022 13:52:10 +0800
+Subject: [PATCH 3/3] add support for fullcone
+
+---
+ .../htdocs/luci-static/resources/view/firewall/zones.js       | 4 ++++
+ modules/luci-base/root/usr/libexec/rpcd/luci                  | 1 +
+ 2 files changed, 5 insertions(+)
+
+diff --git a/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js b/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
+index 58cd2a7c1e..4909c0b06f 100644
+--- a/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
++++ b/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
+@@ -90,6 +90,10 @@ return view.extend({
+ 			o.depends('flow_offloading', '1');
+ 		}
+ 
++		if (L.hasSystemFeature('fullcone')) {
++			o = s.option(form.Flag, 'fullcone', _('Fullcone NAT'));
++			o.optional = true;
++		}
+ 
+ 		s = m.section(form.GridSection, 'zone', _('Zones'));
+ 		s.addremove = true;
+diff --git a/modules/luci-base/root/usr/libexec/rpcd/luci b/modules/luci-base/root/usr/libexec/rpcd/luci
+index 6a80951e8c..6fdba8415d 100755
+--- a/modules/luci-base/root/usr/libexec/rpcd/luci
++++ b/modules/luci-base/root/usr/libexec/rpcd/luci
+@@ -214,6 +214,7 @@ local methods = {
+ 			rv.firewall4     = fs.access("/sbin/fw4")
+ 			rv.opkg          = fs.access("/bin/opkg")
+ 			rv.offloading    = fs.access("/sys/module/xt_FLOWOFFLOAD/refcnt") or fs.access("/sys/module/nft_flow_offload/refcnt")
++			rv.fullcone      = fs.access("/sys/module/nft_fullcone/refcnt")
+ 			rv.br2684ctl     = fs.access("/usr/sbin/br2684ctl")
+ 			rv.swconfig      = fs.access("/sbin/swconfig")
+ 			rv.odhcpd        = fs.access("/usr/sbin/odhcpd")
+-- 
+2.34.1
+

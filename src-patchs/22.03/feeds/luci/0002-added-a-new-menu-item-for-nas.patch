@@ -1,7 +1,7 @@
-From 3c7bd213b746a5ecd990cd89a1b29b473f37d0dd Mon Sep 17 00:00:00 2001
+From 66d314121bc83665116153099a4780102e5f7fab Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Sun, 24 Jul 2022 13:24:38 +0800
-Subject: [PATCH 2/2] added a new menu item for nas
+Subject: [PATCH 2/3] added a new menu item for nas
 
 ---
  modules/luci-base/luasrc/controller/admin/uci.lua | 3 +++
@@ -24,10 +24,10 @@ index 7aad10d58a..c1966736e5 100644
  local function ubus_state_to_http(errstr)
  	local map = {
 diff --git a/modules/luci-base/po/zh_Hans/base.po b/modules/luci-base/po/zh_Hans/base.po
-index 6a13ccbdb6..1f8a465133 100644
+index 6a1d938976..18bb9ae48a 100644
 --- a/modules/luci-base/po/zh_Hans/base.po
 +++ b/modules/luci-base/po/zh_Hans/base.po
-@@ -9681,3 +9681,6 @@ msgstr "是"
+@@ -9768,3 +9768,6 @@ msgstr "是"
  #: modules/luci-compat/luasrc/view/cbi/delegator.htm:20
  msgid "« Back"
  msgstr "« 后退"
@@ -35,10 +35,10 @@ index 6a13ccbdb6..1f8a465133 100644
 +msgid "NAS"
 +msgstr "网络存储"
 diff --git a/modules/luci-base/po/zh_Hant/base.po b/modules/luci-base/po/zh_Hant/base.po
-index 50a60f29bf..7cd3736b6a 100644
+index 7e319c8e88..698478a91e 100644
 --- a/modules/luci-base/po/zh_Hant/base.po
 +++ b/modules/luci-base/po/zh_Hant/base.po
-@@ -9690,3 +9690,6 @@ msgstr "是"
+@@ -9775,3 +9775,6 @@ msgstr "是"
  #: modules/luci-compat/luasrc/view/cbi/delegator.htm:20
  msgid "« Back"
  msgstr "« 倒退"
