@@ -1,4 +1,4 @@
-From 1bd94942aa029d84e54e03a1f6c4c751d34065f9 Mon Sep 17 00:00:00 2001
+From 243d61a874f74b718b53dfc80502ab97babb71ea Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Mon, 5 Sep 2022 13:52:10 +0800
 Subject: [PATCH 3/3] add support for fullcone
@@ -9,10 +9,10 @@ Subject: [PATCH 3/3] add support for fullcone
  2 files changed, 5 insertions(+)
 
 diff --git a/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js b/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
-index 58cd2a7c1e..4909c0b06f 100644
+index f07df06153..d9a44c0e09 100644
 --- a/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
 +++ b/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
-@@ -90,6 +90,10 @@ return view.extend({
+@@ -91,6 +91,10 @@ return view.extend({
  			o.depends('flow_offloading', '1');
  		}
  
@@ -24,7 +24,7 @@ index 58cd2a7c1e..4909c0b06f 100644
  		s = m.section(form.GridSection, 'zone', _('Zones'));
  		s.addremove = true;
 diff --git a/modules/luci-base/root/usr/libexec/rpcd/luci b/modules/luci-base/root/usr/libexec/rpcd/luci
-index 6a80951e8c..6fdba8415d 100755
+index f124512f59..ba00aa7df7 100755
 --- a/modules/luci-base/root/usr/libexec/rpcd/luci
 +++ b/modules/luci-base/root/usr/libexec/rpcd/luci
 @@ -214,6 +214,7 @@ local methods = {
@@ -36,5 +36,5 @@ index 6a80951e8c..6fdba8415d 100755
  			rv.swconfig      = fs.access("/sbin/swconfig")
  			rv.odhcpd        = fs.access("/usr/sbin/odhcpd")
 -- 
-2.34.1
+2.25.1
 
