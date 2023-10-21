@@ -1,0 +1,89 @@
+From ce54579a76e5a8e10c2870fa30b55b41e9ecbef6 Mon Sep 17 00:00:00 2001
+From: Lawrence-Tang <tangzongsheng@gmail.com>
+Date: Fri, 22 Jul 2022 13:00:30 +0800
+Subject: [PATCH 2/2] fix to make factory reset button work on FriendlyWrt
+
+---
+ .../resources/view/system/flash.js            | 34 ++++++++++---------
+ 1 file changed, 18 insertions(+), 16 deletions(-)
+
+diff --git a/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js b/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
+index 8661181781..05e058c8b1 100644
+--- a/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
++++ b/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
+@@ -101,7 +101,7 @@ return view.extend({
+ 		/* Currently the sysupgrade rpc call will not return, hence no promise handling */
+ 		fs.exec('/sbin/firstboot', [ '-r', '-y' ]);
+ 
+-		ui.awaitReconnect('192.168.1.1', 'openwrt.lan');
++		ui.awaitReconnect('192.168.2.1', 'openwrt.lan');
+ 	},
+ 
+ 	handleRestore: function(ev) {
+@@ -163,7 +163,7 @@ return view.extend({
+ 					E('p', { 'class': 'spinning' }, _('The system is rebooting now. If the restored configuration changed the current LAN IP address, you might need to reconnect manually.'))
+ 				]);
+ 
+-				ui.awaitReconnect(window.location.host, '192.168.1.1', 'openwrt.lan');
++				ui.awaitReconnect(window.location.host, '192.168.2.1', 'openwrt.lan');
+ 			}, this))
+ 			.catch(function(e) { ui.addNotification(null, E('p', e.message)) })
+ 			.finally(function() { btn.firstChild.data = _('Upload archive...') });
+@@ -335,7 +335,7 @@ return view.extend({
+ 		if (opts['keep'][0].checked)
+ 			ui.awaitReconnect(window.location.host);
+ 		else
+-			ui.awaitReconnect('192.168.1.1', 'openwrt.lan');
++			ui.awaitReconnect('192.168.2.1', 'openwrt.lan');
+ 	},
+ 
+ 	handleBackupList: function(ev) {
+@@ -377,7 +377,7 @@ return view.extend({
+ 		    procmtd = rpc_replies[2],
+ 		    procpart = rpc_replies[3],
+ 		    procmounts = rpc_replies[4],
+-		    has_rootfs_data = (procmtd.match(/"rootfs_data"/) != null) || (procmounts.match("overlayfs:\/overlay \/ ") != null),
++		    has_rootfs_data = (procmtd.match(/"rootfs_data"/) != null) || (procmounts.match("overlayfs:\/overlay \/ ") != null) || (procmounts.match("overlay \/ overlay") != null),
+ 		    storage_size = findStorageSize(procmtd, procpart),
+ 		    m, s, o, ss;
+ 
+@@ -435,22 +435,24 @@ return view.extend({
+ 			o.onclick = L.bind(this.handleBlock, this, hostname);
+ 		}
+ 
++		if (fs.stat('/etc/config/emmc-tool')) {
++			//hide firmware flash button on friendlywrt
++		} else {
++			o = s.option(form.SectionValue, 'actions', form.NamedSection, 'actions', 'actions', _('Flash new firmware image'),
++				has_sysupgrade
++					? _('Upload a sysupgrade-compatible image here to replace the running firmware.')
++					: _('Sorry, there is no sysupgrade support present; a new firmware image must be flashed manually. Please refer to the wiki for device specific install instructions.'));
+ 
+-		o = s.option(form.SectionValue, 'actions', form.NamedSection, 'actions', 'actions', _('Flash new firmware image'),
+-			has_sysupgrade
+-				? _('Upload a sysupgrade-compatible image here to replace the running firmware.')
+-				: _('Sorry, there is no sysupgrade support present; a new firmware image must be flashed manually. Please refer to the wiki for device specific install instructions.'));
+-
+-		ss = o.subsection;
++			ss = o.subsection;
+ 
+-		if (has_sysupgrade) {
+-			o = ss.option(form.Button, 'sysupgrade', _('Image'));
+-			o.inputstyle = 'action important';
+-			o.inputtitle = _('Flash image...');
+-			o.onclick = L.bind(this.handleSysupgrade, this, storage_size, has_rootfs_data);
++			if (has_sysupgrade) {
++				o = ss.option(form.Button, 'sysupgrade', _('Image'));
++				o.inputstyle = 'action important';
++				o.inputtitle = _('Flash image...');
++				o.onclick = L.bind(this.handleSysupgrade, this, storage_size, has_rootfs_data);
++			}
+ 		}
+ 
+-
+ 		s = m.section(form.NamedSection, 'config', 'config', _('Configuration'), _('This is a list of shell glob patterns for matching files and directories to include during sysupgrade. Modified files in /etc/config/ and certain other configurations are automatically preserved.'));
+ 		s.render = L.bind(function(view /*, ... */) {
+ 			return form.NamedSection.prototype.render.apply(this, this.varargs(arguments, 1))
+-- 
+2.25.1
+
