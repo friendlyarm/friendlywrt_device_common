@@ -1,7 +1,7 @@
-From ce54579a76e5a8e10c2870fa30b55b41e9ecbef6 Mon Sep 17 00:00:00 2001
+From 3b0507d4f99ff5f752451b49dbe4477adc703be1 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Fri, 22 Jul 2022 13:00:30 +0800
-Subject: [PATCH 2/2] fix to make factory reset button work on FriendlyWrt
+Subject: [PATCH 2/3] fix to make factory reset button work on FriendlyWrt
 
 ---
  .../resources/view/system/flash.js            | 34 ++++++++++---------
@@ -85,5 +85,5 @@ index 8661181781..05e058c8b1 100644
  		s.render = L.bind(function(view /*, ... */) {
  			return form.NamedSection.prototype.render.apply(this, this.varargs(arguments, 1))
 -- 
-2.25.1
+2.34.1
 

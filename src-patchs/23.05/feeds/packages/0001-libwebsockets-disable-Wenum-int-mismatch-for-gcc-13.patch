@@ -1,7 +1,7 @@
-From 48ddf58d24ffe6c01fd62b4dc144b4eb7f2544f2 Mon Sep 17 00:00:00 2001
+From 3d9ef2a95cea0a6097d25d5241e1d39e6f67857f Mon Sep 17 00:00:00 2001
 From: Jensen Huang <jensenhuang@friendlyarm.com>
 Date: Sun, 15 Oct 2023 12:04:23 +0800
-Subject: [PATCH] libwebsockets: disable '-Wenum-int-mismatch' for gcc-13
+Subject: [PATCH 1/2] libwebsockets: disable '-Wenum-int-mismatch' for gcc-13
 
 Signed-off-by: Jensen Huang <jensenhuang@friendlyarm.com>
 ---
