@@ -1,14 +1,14 @@
-From 3b0507d4f99ff5f752451b49dbe4477adc703be1 Mon Sep 17 00:00:00 2001
+From cacc7d2d862e05c1e8445377a9e29a06e1662a67 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Fri, 22 Jul 2022 13:00:30 +0800
-Subject: [PATCH 2/3] fix to make factory reset button work on FriendlyWrt
+Subject: [PATCH 2/2] fix to make factory reset button work on FriendlyWrt
 
 ---
  .../resources/view/system/flash.js            | 34 ++++++++++---------
  1 file changed, 18 insertions(+), 16 deletions(-)
 
 diff --git a/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js b/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
-index 8661181781..05e058c8b1 100644
+index 2ef096f5..9faabbf8 100644
 --- a/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
 +++ b/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
 @@ -101,7 +101,7 @@ return view.extend({
@@ -29,7 +29,7 @@ index 8661181781..05e058c8b1 100644
  			}, this))
  			.catch(function(e) { ui.addNotification(null, E('p', e.message)) })
  			.finally(function() { btn.firstChild.data = _('Upload archive...') });
-@@ -335,7 +335,7 @@ return view.extend({
+@@ -337,7 +337,7 @@ return view.extend({
  		if (opts['keep'][0].checked)
  			ui.awaitReconnect(window.location.host);
  		else
@@ -38,7 +38,7 @@ index 8661181781..05e058c8b1 100644
  	},
  
  	handleBackupList: function(ev) {
-@@ -377,7 +377,7 @@ return view.extend({
+@@ -379,7 +379,7 @@ return view.extend({
  		    procmtd = rpc_replies[2],
  		    procpart = rpc_replies[3],
  		    procmounts = rpc_replies[4],
@@ -47,7 +47,7 @@ index 8661181781..05e058c8b1 100644
  		    storage_size = findStorageSize(procmtd, procpart),
  		    m, s, o, ss;
  
-@@ -435,22 +435,24 @@ return view.extend({
+@@ -437,22 +437,24 @@ return view.extend({
  			o.onclick = L.bind(this.handleBlock, this, hostname);
  		}
  
@@ -85,5 +85,5 @@ index 8661181781..05e058c8b1 100644
  		s.render = L.bind(function(view /*, ... */) {
  			return form.NamedSection.prototype.render.apply(this, this.varargs(arguments, 1))
 -- 
-2.34.1
+2.25.1
 
