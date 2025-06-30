@@ -1,4 +1,4 @@
-From cacc7d2d862e05c1e8445377a9e29a06e1662a67 Mon Sep 17 00:00:00 2001
+From 3f132b6270f00bf2b531b69d9bf1f89699b943f3 Mon Sep 17 00:00:00 2001
 From: Lawrence-Tang <tangzongsheng@gmail.com>
 Date: Fri, 22 Jul 2022 13:00:30 +0800
 Subject: [PATCH 2/2] fix to make factory reset button work on FriendlyWrt
@@ -8,7 +8,7 @@ Subject: [PATCH 2/2] fix to make factory reset button work on FriendlyWrt
  1 file changed, 18 insertions(+), 16 deletions(-)
 
 diff --git a/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js b/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
-index 2ef096f5..9faabbf8 100644
+index 2ef096f..9faabbf 100644
 --- a/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
 +++ b/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
 @@ -101,7 +101,7 @@ return view.extend({
@@ -85,5 +85,5 @@ index 2ef096f5..9faabbf8 100644
  		s.render = L.bind(function(view /*, ... */) {
  			return form.NamedSection.prototype.render.apply(this, this.varargs(arguments, 1))
 -- 
-2.25.1
+2.34.1
 
