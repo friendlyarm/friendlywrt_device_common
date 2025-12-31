@@ -1,0 +1,29 @@
+From 1359865b04569ad9b9b875b2255e0b92cd239db4 Mon Sep 17 00:00:00 2001
+From: Lawrence-Tang <tangzongsheng@gmail.com>
+Date: Mon, 8 Dec 2025 14:06:43 +0800
+Subject: [PATCH] bump dahdi-linux
+
+---
+ libs/dahdi-linux/Makefile | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/libs/dahdi-linux/Makefile b/libs/dahdi-linux/Makefile
+index 97955d1..037955c 100644
+--- a/libs/dahdi-linux/Makefile
++++ b/libs/dahdi-linux/Makefile
+@@ -13,9 +13,9 @@ PKG_RELEASE:=1
+ 
+ PKG_SOURCE_PROTO:=git
+ PKG_SOURCE_URL:=https://github.com/asterisk/dahdi-linux.git
+-PKG_SOURCE_DATE=2024-04-12
+-PKG_SOURCE_VERSION:=83d89b64d9151dbe4eb53b9ebc8640a08fcf4d63
+-PKG_MIRROR_HASH:=67acfb62213270050d941643cb763c315cc6a2682a94fc517975707918e42ecb
++PKG_SOURCE_DATE=2024-09-22
++PKG_SOURCE_VERSION:=b821026c73588e927ae882f904642c2103781395
++PKG_MIRROR_HASH:=0b598d48ecea985b433a5c2b9b9b0b992d464157296d4dcc96252b713988c4df
+ 
+ PKG_LICENSE:=GPL-2.0
+ PKG_LICENSE_FILES:=LICENSE
+-- 
+2.34.1
+
