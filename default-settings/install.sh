@@ -5,15 +5,18 @@ CURRPATH=$PWD
 
 function clean_rootfs()
 {
-    mkdir -p run
-    mkdir -p root/.ssh
-    chmod 0700 root root/.ssh
-    rm -f lib/preinit/79_move_config
-    rm -rf rom/
+	mkdir -p run
+	mkdir -p root/.ssh
+	chmod 0700 root root/.ssh
+	rm -f lib/preinit/79_move_config
+	rm -rf rom/
 }
 
 (cd ${ROOTFS_DIR} && {
 	cp -af $CURRPATH/sysctl/* ${ROOTFS_DIR}/
-	cp -af $CURRPATH/opkg-conf/* ${ROOTFS_DIR}/
+
+	source usr/lib/os-release
+	MAJOR=$(echo "$VERSION" | cut -d'.' -f1)
+	[ "$MAJOR" -ge 25 ] || cp -af $CURRPATH/opkg-conf/* ${ROOTFS_DIR}/
 	clean_rootfs
 })

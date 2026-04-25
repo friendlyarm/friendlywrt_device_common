@@ -1,0 +1,67 @@
+From e5a570360e5c0fd1ef97bb7d904a11295cbc9d2b Mon Sep 17 00:00:00 2001
+From: Lawrence-Tang <tangzongsheng@gmail.com>
+Date: Mon, 13 Apr 2026 15:47:10 +0800
+Subject: [PATCH] luci-mod-system: replace sysupgrade flash section with
+ eMMC-Tools redirect
+
+---
+ .../luci-static/resources/view/system/flash.js | 14 +++++---------
+ modules/luci-mod-system/po/zh_Hans/system.po   | 18 ++++++++++++++++++
+ 2 files changed, 23 insertions(+), 9 deletions(-)
+ create mode 100644 modules/luci-mod-system/po/zh_Hans/system.po
+
+diff --git a/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js b/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
+index 94f23f9..91cf8ec 100644
+--- a/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
++++ b/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
+@@ -435,18 +435,14 @@ return view.extend({
+ 
+ 
+ 		o = s.option(form.SectionValue, 'actions', form.NamedSection, 'actions', 'actions', _('Flash new firmware image'),
+-			has_sysupgrade
+-				? _('Upload a sysupgrade-compatible image here to replace the running firmware.')
+-				: _('Sorry, there is no sysupgrade support present; a new firmware image must be flashed manually. Please refer to the wiki for device specific install instructions.'));
++			_('FriendlyWrt firmware flashing is provided by the eMMC-Tools page.'));
+ 
+ 		ss = o.subsection;
+ 
+-		if (has_sysupgrade) {
+-			o = ss.option(form.Button, 'sysupgrade', _('Image'));
+-			o.inputstyle = 'action important';
+-			o.inputtitle = _('Flash image...');
+-			o.onclick = L.bind(this.handleSysupgrade, this, storage_size, has_rootfs_data);
+-		}
++		o = ss.option(form.Button, 'sysupgrade', _('Flash Image'));
++		o.inputstyle = 'action important';
++		o.inputtitle = _('Go to eMMC-Tools');
++		o.onclick = function() { window.location.href = '/cgi-bin/luci/admin/system/emmc-tools'; };
+ 
+ 
+ 		s = m.section(form.NamedSection, 'config', 'config', _('Configuration'), _('This is a list of shell glob patterns for matching files and directories to include during sysupgrade. Modified files in /etc/config/ and certain other configurations are automatically preserved.'));
+diff --git a/modules/luci-mod-system/po/zh_Hans/system.po b/modules/luci-mod-system/po/zh_Hans/system.po
+new file mode 100644
+index 0000000..2e40e28
+--- /dev/null
++++ b/modules/luci-mod-system/po/zh_Hans/system.po
+@@ -0,0 +1,18 @@
++msgid ""
++msgstr ""
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"Language: zh_Hans\n"
++"Plural-Forms: nplurals=1; plural=0;\n"
++
++#: modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
++msgid "FriendlyWrt firmware flashing is provided by the eMMC-Tools page."
++msgstr "FriendlyWrt 将由 eMMC-Tools 页面提供固件的烧写功能。"
++
++#: modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
++msgid "Flash Image"
++msgstr "刷写固件"
++
++#: modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
++msgid "Go to eMMC-Tools"
++msgstr "跳转到 eMMC-Tools"
+-- 
+2.34.1
+

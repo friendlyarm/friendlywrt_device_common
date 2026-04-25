@@ -4,7 +4,8 @@ ROOTFS_DIR=$1
 
 (cd ${ROOTFS_DIR} && {
 	source usr/lib/os-release
-	cat >etc/opkg/distfeeds.conf <<EOF
+	MAJOR=$(echo "$VERSION" | cut -d'.' -f1)
+	[ "$MAJOR" -ge 25 ] || cat >etc/opkg/distfeeds.conf <<EOF
 #
 # Use the following command to switch to the default source:
 #     sed -i -e 's/mirrors.ustc.edu.cn\/openwrt/downloads.openwrt.org/g' /etc/opkg/distfeeds.conf

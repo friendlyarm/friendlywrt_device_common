@@ -1,0 +1,41 @@
+From 02542fd6a81b4aa3bcd75495b85d7eedf27fa2e5 Mon Sep 17 00:00:00 2001
+From: jensen <jensenhuang@friendlyarm.com>
+Date: Fri, 9 Jan 2026 12:35:22 +0800
+Subject: [PATCH] luci: add option for fullcone nat
+
+Signed-off-by: jensen <jensenhuang@friendlyarm.com>
+---
+ .../htdocs/luci-static/resources/view/firewall/zones.js       | 4 ++++
+ modules/luci-base/root/usr/share/rpcd/ucode/luci              | 1 +
+ 2 files changed, 5 insertions(+)
+
+diff --git a/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js b/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
+index dc9b094..e47df50 100644
+--- a/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
++++ b/applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/zones.js
+@@ -97,6 +97,10 @@ return view.extend({
+ 			};
+ 		}
+ 
++		if (L.hasSystemFeature('fullcone')) {
++			o = s.option(form.Flag, 'fullcone', _('Fullcone NAT'));
++			o.optional = true;
++		}
+ 
+ 		s = m.section(form.GridSection, 'zone', _('Zones'));
+ 		s.addremove = true;
+diff --git a/modules/luci-base/root/usr/share/rpcd/ucode/luci b/modules/luci-base/root/usr/share/rpcd/ucode/luci
+index 55a5572..fd6a6a0 100644
+--- a/modules/luci-base/root/usr/share/rpcd/ucode/luci
++++ b/modules/luci-base/root/usr/share/rpcd/ucode/luci
+@@ -229,6 +229,7 @@ const methods = {
+ 				bonding:    access('/sys/module/bonding'),
+ 				mii_tool:   access('/usr/sbin/mii-tool'),
+ 				offloading: access('/sys/module/xt_FLOWOFFLOAD/refcnt') == true || access('/sys/module/nft_flow_offload/refcnt') == true,
++				fullcone:   access('/sys/module/nft_fullcone/refcnt') == true,
+ 				br2684ctl:  access('/usr/sbin/br2684ctl') == true,
+ 				swconfig:   access('/sbin/swconfig') == true,
+ 				zram:       access('/sys/class/zram-control') == true,
+-- 
+2.52.0
+
